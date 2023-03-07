@@ -7,7 +7,7 @@ const multer = require("multer");
 
 require('dotenv').config()
 
-
+// import Routers
 const userRouter = require("./routes/user.routes");
 const authRouter = require("./routes/auth.routes");
 
@@ -17,7 +17,7 @@ const app = express();
 // Middlewares
 app.use(express.json())
 app.use(cors({
-    origin: 'http://localhost:3000'
+    origin: ['http://localhost:3000', 'http://127.0.0.1:5173']
 }))
 app.use(helmet())
 app.use(cookieParser());

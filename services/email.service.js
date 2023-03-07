@@ -1,28 +1,30 @@
 const nodemailer = require('nodemailer');
+require('dotenv').config()
 
+const sendEmail = async (email, subject, body) => {
+    try {
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.EMAIL,
+                pass: process.env.EMAIL_PASSWORD
+            }
+        });
 
-const sendForgetPasswordEmail = async (to) => {
-    let testAccount = await nodemailer.createTestAccount();
+        const mailOptions = {
+            from: `<${process.env.EMAIL}>`,
+            to: email,
+            subject,
+            html: body
+        };
 
-    // create reusable transporter object using the default SMTP transport
-    let transporter = nodemailer.createTransport({
-        host: "smtp.ethereal.email",
-        port: 587,
-        secure: false, // true for 465, false for other ports
-        auth: {
-            user: testAccount.user, // generated ethereal user
-            pass: testAccount.pass, // generated ethereal password
-        },
-    });
+        return await transporter.sendMail(mailOptions);
 
-    // send mail with defined transport object
-    let info = await transporter.sendMail({
-        from: '"Fred Foo 👻" <foo@example.com>', // sender address
-        to: "bar@example.com, baz@example.com", // list of receivers
-        subject: "Hello ✔", // Subject line
-        text: "Hello world?", // plain text body
-        html: "<b>Hello world?</b>", // html body
-    });
+    } catch (error) {
+        // TODO: throws error
+        console.log(error)
+    }
 }
+// sendEmail("abdousfayhi12@gmail.com" , "test Subject", "test text","<h1>hello</h1>")
 
-module.exports = sendForgetPasswordEmail
+module.exports = sendEmail; 
