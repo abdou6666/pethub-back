@@ -10,8 +10,23 @@ const authenticationMiddleware = async (req, res, next) => {
     if (!authorization.startsWith('Bearer ')) {
         return res.status(401).json({ error: 'Unauthorized' });
     }
+    // console.log(req.cookies)
+    // if (!req.cookies.jwt) {
+    //     return res.status(401).json({ error: 'Missing token' })
+    // }
+    // const refreshToken = req.cookies.jwt;
+    // const refreshTokenPayload = jwt.decode(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+
+    // if (!refreshTokenPayload) {
+    //     return res.status(401).json({ error: 'Token has been changed' })
+    // }
+
     const token = authorization.split(' ')[1];
+
+
+    //TODO : verify throws error needs fix
     const payload = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+
     if (!payload) {
         return res.status(401).json({ error: 'Unauthorized' });
     }

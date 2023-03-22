@@ -30,7 +30,22 @@ const UserSchema = new Schema({
     accountConfirmed: {
         type: Boolean,
         default: false
-    }
+    },
+    ban: {
+        type: Boolean,
+        default: false
+    },
+    photos: [
+        {
+            url: {
+                type: String,
+            },
+            isMain: {
+                type: Boolean,
+                default: false
+            }
+        }
+    ]
 
 });
 

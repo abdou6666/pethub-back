@@ -4,6 +4,7 @@ const generateToken = (user, type) => {
     let token;
 
     const tokensTypes = ['access_token', 'refresh_token', 'email_token'];
+
     if (!type || !tokensTypes.includes(type)) {
         throw new Error(`can not generate this type of token : ${type}`)
     }
@@ -32,4 +33,3 @@ const generateToken = (user, type) => {
 }
 
 module.exports = generateToken;
-// module.exports = { createAccessToken, createRefreshToken, emailToken, generateToken }
